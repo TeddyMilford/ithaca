@@ -1,0 +1,2530 @@
+{
+ "version": 1,
+ "note_to_reader": "equipment is AND: every token must be checked by the user. equipment_any is OR: at least one token must be checked. A movement with both must satisfy both. An empty equipment list means bodyweight, always available. alternates is the fallback chain, walked in order, first valid entry wins.",
+ "equipment": [
+  {
+   "id": "full_gym",
+   "label": "Full gym",
+   "implies": [
+    "squat_rack",
+    "barbell",
+    "dumbbells",
+    "kettlebell",
+    "pullup_bar",
+    "dip_station",
+    "cable_machine",
+    "machine"
+   ]
+  },
+  {
+   "id": "squat_rack",
+   "label": "Squat rack"
+  },
+  {
+   "id": "barbell",
+   "label": "Barbell"
+  },
+  {
+   "id": "trap_bar",
+   "label": "Trap bar"
+  },
+  {
+   "id": "dumbbells",
+   "label": "Dumbbells"
+  },
+  {
+   "id": "kettlebell",
+   "label": "Kettlebell"
+  },
+  {
+   "id": "pullup_bar",
+   "label": "Pull-up bar"
+  },
+  {
+   "id": "dip_station",
+   "label": "Dip station"
+  },
+  {
+   "id": "bands",
+   "label": "Resistance bands"
+  },
+  {
+   "id": "cable_machine",
+   "label": "Cable machine"
+  },
+  {
+   "id": "machine",
+   "label": "Selectorized machines",
+   "note": "Only supplied by a full gym."
+  },
+  {
+   "id": "pool",
+   "label": "Pool access"
+  },
+  {
+   "id": "track",
+   "label": "Track or open road"
+  }
+ ],
+ "slots": [
+  {
+   "id": "squat",
+   "label": "Squat pattern",
+   "family": "lower"
+  },
+  {
+   "id": "hinge",
+   "label": "Hinge",
+   "family": "lower"
+  },
+  {
+   "id": "horizontal_press",
+   "label": "Horizontal press",
+   "family": "push"
+  },
+  {
+   "id": "vertical_press",
+   "label": "Vertical press",
+   "family": "push"
+  },
+  {
+   "id": "horizontal_row",
+   "label": "Horizontal row",
+   "family": "pull"
+  },
+  {
+   "id": "vertical_pull",
+   "label": "Vertical pull",
+   "family": "pull"
+  },
+  {
+   "id": "triceps",
+   "label": "Triceps",
+   "family": "push"
+  },
+  {
+   "id": "biceps",
+   "label": "Biceps",
+   "family": "pull"
+  },
+  {
+   "id": "side_delts",
+   "label": "Side delts",
+   "family": "push"
+  },
+  {
+   "id": "rear_delts",
+   "label": "Rear delts",
+   "family": "pull"
+  },
+  {
+   "id": "traps",
+   "label": "Traps",
+   "family": "pull"
+  },
+  {
+   "id": "carry",
+   "label": "Carry",
+   "family": "carry"
+  },
+  {
+   "id": "core",
+   "label": "Core",
+   "family": "core"
+  },
+  {
+   "id": "mobility",
+   "label": "Mobility",
+   "family": "mobility"
+  },
+  {
+   "id": "conditioning",
+   "label": "Conditioning",
+   "family": "conditioning"
+  }
+ ],
+ "movements": [
+  {
+   "id": "back_squat",
+   "name": "Back squat",
+   "slot": "squat",
+   "equipment": [
+    "barbell",
+    "squat_rack"
+   ],
+   "alternates": [
+    "front_squat",
+    "goblet_squat",
+    "bulgarian_split_squat",
+    "bodyweight_squat"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 5,
+    "high": 8,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "compound"
+   ],
+   "note": "High bar, full depth, brace before unracking"
+  },
+  {
+   "id": "front_squat",
+   "name": "Front squat",
+   "slot": "squat",
+   "equipment": [
+    "barbell",
+    "squat_rack"
+   ],
+   "alternates": [
+    "goblet_squat",
+    "back_squat",
+    "bulgarian_split_squat",
+    "bodyweight_squat"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 5,
+    "high": 8,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "compound"
+   ],
+   "note": "Elbows high, bar on the shelf not the wrists"
+  },
+  {
+   "id": "goblet_squat",
+   "name": "Goblet squat",
+   "slot": "squat",
+   "equipment": [],
+   "equipment_any": [
+    "dumbbells",
+    "kettlebell"
+   ],
+   "alternates": [
+    "bulgarian_split_squat",
+    "bodyweight_squat"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "compound"
+   ],
+   "note": "Bell at the sternum, elbows inside the knees"
+  },
+  {
+   "id": "bulgarian_split_squat",
+   "name": "Bulgarian split squat",
+   "slot": "squat",
+   "equipment": [
+    "dumbbells"
+   ],
+   "alternates": [
+    "walking_lunge",
+    "step_up",
+    "bodyweight_squat"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "compound",
+    "unilateral"
+   ],
+   "note": "Rear foot elevated, torso tall, front heel loaded"
+  },
+  {
+   "id": "walking_lunge",
+   "name": "Walking lunge",
+   "slot": "squat",
+   "equipment": [],
+   "alternates": [
+    "bodyweight_squat"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 10,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": true,
+   "tags": [
+    "compound",
+    "unilateral"
+   ],
+   "note": "Load with dumbbells when available, otherwise bodyweight"
+  },
+  {
+   "id": "step_up",
+   "name": "Step-up",
+   "slot": "squat",
+   "equipment": [
+    "dumbbells"
+   ],
+   "alternates": [
+    "walking_lunge",
+    "bodyweight_squat"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "compound",
+    "unilateral"
+   ],
+   "note": "Box at knee height, drive through the top foot, no push off the floor"
+  },
+  {
+   "id": "leg_press",
+   "name": "Leg press",
+   "slot": "squat",
+   "equipment": [
+    "machine"
+   ],
+   "alternates": [
+    "back_squat",
+    "goblet_squat",
+    "bodyweight_squat"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "compound"
+   ],
+   "note": "Feet mid-platform, do not let the lower back round off the pad"
+  },
+  {
+   "id": "bodyweight_squat",
+   "name": "Bodyweight squat",
+   "slot": "squat",
+   "equipment": [],
+   "alternates": [],
+   "scheme": {
+    "sets": 3,
+    "low": 15,
+    "high": 25,
+    "unit": "reps",
+    "max": true
+   },
+   "calisthenic": true,
+   "tags": [],
+   "note": "Full depth, controlled tempo"
+  },
+  {
+   "id": "pistol_squat_progression",
+   "name": "Pistol squat progression",
+   "slot": "squat",
+   "equipment": [],
+   "alternates": [
+    "bodyweight_squat"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 3,
+    "high": 8,
+    "unit": "reps",
+    "max": true
+   },
+   "calisthenic": true,
+   "tags": [
+    "unilateral"
+   ],
+   "note": "Box-assisted, then counterweight, then free"
+  },
+  {
+   "id": "conventional_deadlift",
+   "name": "Conventional deadlift",
+   "slot": "hinge",
+   "equipment": [
+    "barbell"
+   ],
+   "alternates": [
+    "trap_bar_deadlift",
+    "romanian_deadlift",
+    "kb_swing",
+    "hip_thrust"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 5,
+    "high": 8,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "compound",
+    "grip_heavy"
+   ],
+   "note": "Bar over midfoot, lats set before the pull"
+  },
+  {
+   "id": "trap_bar_deadlift",
+   "name": "Trap bar deadlift",
+   "slot": "hinge",
+   "equipment": [
+    "trap_bar"
+   ],
+   "alternates": [
+    "conventional_deadlift",
+    "romanian_deadlift",
+    "kb_swing"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 5,
+    "high": 8,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "compound",
+    "grip_heavy"
+   ],
+   "note": "Neutral grip, mid-shin start"
+  },
+  {
+   "id": "romanian_deadlift",
+   "name": "Romanian deadlift",
+   "slot": "hinge",
+   "equipment": [],
+   "equipment_any": [
+    "barbell",
+    "dumbbells"
+   ],
+   "alternates": [
+    "single_leg_rdl",
+    "kb_swing",
+    "back_extension",
+    "hip_thrust"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "compound",
+    "grip_heavy"
+   ],
+   "note": "Soft knees, push the hips back, stop at mid-shin"
+  },
+  {
+   "id": "single_leg_rdl",
+   "name": "Single-leg RDL",
+   "slot": "hinge",
+   "equipment": [
+    "dumbbells"
+   ],
+   "alternates": [
+    "romanian_deadlift",
+    "back_extension",
+    "hip_thrust"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "unilateral",
+    "grip_heavy"
+   ],
+   "note": "Hips square, free leg extends behind as a counterweight"
+  },
+  {
+   "id": "kb_swing",
+   "name": "Kettlebell swing",
+   "slot": "hinge",
+   "equipment": [
+    "kettlebell"
+   ],
+   "alternates": [
+    "romanian_deadlift",
+    "hip_thrust",
+    "back_extension"
+   ],
+   "scheme": {
+    "sets": 4,
+    "low": 12,
+    "high": 20,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "compound",
+    "grip_heavy",
+    "conditioning_bias"
+   ],
+   "note": "Hip snap, not a squat, bell floats to chest height"
+  },
+  {
+   "id": "hip_thrust",
+   "name": "Hip thrust",
+   "slot": "hinge",
+   "equipment": [],
+   "alternates": [
+    "back_extension"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "compound"
+   ],
+   "note": "Load with a barbell when available, ribs down at lockout"
+  },
+  {
+   "id": "back_extension",
+   "name": "Back extension",
+   "slot": "hinge",
+   "equipment": [],
+   "alternates": [
+    "hip_thrust"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 10,
+    "high": 15,
+    "unit": "reps"
+   },
+   "calisthenic": true,
+   "tags": [],
+   "note": "Machine or bench, round and re-extend under control"
+  },
+  {
+   "id": "good_morning",
+   "name": "Good morning",
+   "slot": "hinge",
+   "equipment": [
+    "barbell"
+   ],
+   "alternates": [
+    "romanian_deadlift",
+    "back_extension",
+    "hip_thrust"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [],
+   "note": "Light, hips back, stop well short of the end range"
+  },
+  {
+   "id": "flat_barbell_bench",
+   "name": "Flat barbell bench",
+   "slot": "horizontal_press",
+   "equipment": [
+    "barbell",
+    "squat_rack"
+   ],
+   "alternates": [
+    "flat_db_press",
+    "machine_chest_press",
+    "pushup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 5,
+    "high": 8,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "compound"
+   ],
+   "note": "Shoulder blades pinned, bar to the sternum"
+  },
+  {
+   "id": "incline_barbell_bench",
+   "name": "Incline barbell bench",
+   "slot": "horizontal_press",
+   "equipment": [
+    "barbell",
+    "squat_rack"
+   ],
+   "alternates": [
+    "incline_db_press",
+    "flat_barbell_bench",
+    "pushup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 5,
+    "high": 8,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "compound"
+   ],
+   "note": "30 to 45 degrees, bar to the upper chest"
+  },
+  {
+   "id": "flat_db_press",
+   "name": "Flat dumbbell press",
+   "slot": "horizontal_press",
+   "equipment": [
+    "dumbbells"
+   ],
+   "alternates": [
+    "machine_chest_press",
+    "pushup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "compound"
+   ],
+   "note": "Wrists stacked over elbows, do not clash the bells at the top"
+  },
+  {
+   "id": "incline_db_press",
+   "name": "Incline dumbbell press",
+   "slot": "horizontal_press",
+   "equipment": [
+    "dumbbells"
+   ],
+   "alternates": [
+    "flat_db_press",
+    "machine_chest_press",
+    "pushup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "compound"
+   ],
+   "note": "30 to 45 degrees, full stretch at the bottom"
+  },
+  {
+   "id": "pushup",
+   "name": "Push-up",
+   "slot": "horizontal_press",
+   "equipment": [],
+   "alternates": [],
+   "scheme": {
+    "sets": 3,
+    "low": 10,
+    "high": 25,
+    "unit": "reps",
+    "max": true
+   },
+   "calisthenic": true,
+   "tags": [],
+   "note": "Ribs down, elbows at 45 degrees, full lockout"
+  },
+  {
+   "id": "deficit_pushup",
+   "name": "Deficit push-up",
+   "slot": "horizontal_press",
+   "equipment": [],
+   "alternates": [
+    "pushup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 20,
+    "unit": "reps",
+    "max": true
+   },
+   "calisthenic": true,
+   "tags": [],
+   "note": "Hands on blocks or bells, chest below the hands"
+  },
+  {
+   "id": "ring_trx_press",
+   "name": "Ring or TRX press",
+   "slot": "horizontal_press",
+   "equipment": [
+    "pullup_bar"
+   ],
+   "alternates": [
+    "pushup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 15,
+    "unit": "reps",
+    "max": true
+   },
+   "calisthenic": true,
+   "tags": [],
+   "note": "Straps anchored overhead, body rigid from ear to ankle"
+  },
+  {
+   "id": "machine_chest_press",
+   "name": "Machine chest press",
+   "slot": "horizontal_press",
+   "equipment": [
+    "machine"
+   ],
+   "alternates": [
+    "flat_db_press",
+    "pushup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [],
+   "note": "Seat set so the handles sit at mid-chest"
+  },
+  {
+   "id": "cable_fly",
+   "name": "Cable fly",
+   "slot": "horizontal_press",
+   "equipment": [
+    "cable_machine"
+   ],
+   "alternates": [
+    "incline_db_fly",
+    "pushup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 10,
+    "high": 15,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "isolation"
+   ],
+   "note": "Soft elbow angle held constant, squeeze at the midline"
+  },
+  {
+   "id": "incline_db_fly",
+   "name": "Incline dumbbell fly",
+   "slot": "horizontal_press",
+   "equipment": [
+    "dumbbells"
+   ],
+   "alternates": [
+    "cable_fly",
+    "pushup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 10,
+    "high": 15,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "isolation"
+   ],
+   "note": "Wide arc, light load, stretch is the point"
+  },
+  {
+   "id": "seated_db_shoulder_press",
+   "name": "Seated dumbbell shoulder press",
+   "slot": "vertical_press",
+   "equipment": [
+    "dumbbells"
+   ],
+   "alternates": [
+    "arnold_press",
+    "machine_shoulder_press",
+    "pike_pushup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "never_to_failure": true,
+   "tags": [
+    "compound"
+   ],
+   "note": "Back supported, ribs down, no lumbar arch to finish the rep"
+  },
+  {
+   "id": "standing_ohp",
+   "name": "Standing barbell overhead press",
+   "slot": "vertical_press",
+   "equipment": [
+    "barbell"
+   ],
+   "alternates": [
+    "seated_db_shoulder_press",
+    "landmine_press",
+    "pike_pushup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 5,
+    "high": 8,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "never_to_failure": true,
+   "tags": [
+    "compound"
+   ],
+   "note": "Glutes tight, head through at lockout"
+  },
+  {
+   "id": "landmine_press",
+   "name": "Landmine press",
+   "slot": "vertical_press",
+   "equipment": [
+    "barbell"
+   ],
+   "alternates": [
+    "seated_db_shoulder_press",
+    "pike_pushup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "never_to_failure": true,
+   "tags": [
+    "compound",
+    "unilateral"
+   ],
+   "note": "Half-kneeling or standing, press up and slightly forward"
+  },
+  {
+   "id": "kb_clean_and_press",
+   "name": "Kettlebell clean and press",
+   "slot": "vertical_press",
+   "equipment": [
+    "kettlebell"
+   ],
+   "alternates": [
+    "seated_db_shoulder_press",
+    "pike_pushup"
+   ],
+   "scheme": {
+    "sets": 4,
+    "low": 5,
+    "high": 8,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "never_to_failure": true,
+   "tags": [
+    "compound",
+    "grip_heavy"
+   ],
+   "note": "Clean to the rack without banging the forearm, then press"
+  },
+  {
+   "id": "arnold_press",
+   "name": "Arnold press",
+   "slot": "vertical_press",
+   "equipment": [
+    "dumbbells"
+   ],
+   "alternates": [
+    "seated_db_shoulder_press",
+    "pike_pushup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "never_to_failure": true,
+   "tags": [],
+   "note": "Rotate from palms-in to palms-out on the way up"
+  },
+  {
+   "id": "pike_pushup",
+   "name": "Pike push-up",
+   "slot": "vertical_press",
+   "equipment": [],
+   "alternates": [],
+   "scheme": {
+    "sets": 3,
+    "low": 6,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": true,
+   "never_to_failure": true,
+   "tags": [],
+   "note": "Hips high, crown of the head to the floor"
+  },
+  {
+   "id": "machine_shoulder_press",
+   "name": "Machine shoulder press",
+   "slot": "vertical_press",
+   "equipment": [
+    "machine"
+   ],
+   "alternates": [
+    "seated_db_shoulder_press",
+    "pike_pushup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "never_to_failure": true,
+   "tags": [],
+   "note": "Seat set so the handles start at ear height"
+  },
+  {
+   "id": "barbell_row",
+   "name": "Barbell row",
+   "slot": "horizontal_row",
+   "equipment": [
+    "barbell"
+   ],
+   "alternates": [
+    "chest_supported_db_row",
+    "single_arm_db_row",
+    "inverted_row"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 5,
+    "high": 8,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "compound",
+    "grip_heavy"
+   ],
+   "note": "Torso near parallel, bar to the lower ribs"
+  },
+  {
+   "id": "chest_supported_db_row",
+   "name": "Chest-supported dumbbell row",
+   "slot": "horizontal_row",
+   "equipment": [
+    "dumbbells"
+   ],
+   "alternates": [
+    "single_arm_db_row",
+    "machine_row",
+    "inverted_row"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "compound",
+    "grip_heavy"
+   ],
+   "note": "Incline bench, no body english available and that is the point"
+  },
+  {
+   "id": "single_arm_db_row",
+   "name": "Single-arm dumbbell row",
+   "slot": "horizontal_row",
+   "equipment": [
+    "dumbbells"
+   ],
+   "alternates": [
+    "chest_supported_db_row",
+    "inverted_row"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "compound",
+    "grip_heavy",
+    "unilateral"
+   ],
+   "note": "Hips square, pull to the hip not the armpit"
+  },
+  {
+   "id": "seated_cable_row",
+   "name": "Seated cable row",
+   "slot": "horizontal_row",
+   "equipment": [
+    "cable_machine"
+   ],
+   "alternates": [
+    "machine_row",
+    "chest_supported_db_row",
+    "inverted_row"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "compound",
+    "grip_heavy"
+   ],
+   "note": "Chest tall, no torso rocking to move the stack"
+  },
+  {
+   "id": "inverted_row",
+   "name": "Inverted row",
+   "slot": "horizontal_row",
+   "equipment": [
+    "pullup_bar"
+   ],
+   "alternates": [],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 15,
+    "unit": "reps",
+    "max": true
+   },
+   "calisthenic": true,
+   "tags": [
+    "grip_heavy"
+   ],
+   "note": "Bar or rings, body straight, chest to the bar"
+  },
+  {
+   "id": "t_bar_row",
+   "name": "T-bar row",
+   "slot": "horizontal_row",
+   "equipment": [
+    "barbell"
+   ],
+   "alternates": [
+    "barbell_row",
+    "chest_supported_db_row",
+    "inverted_row"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "compound",
+    "grip_heavy"
+   ],
+   "note": "Landmine or T-bar station, neutral grip"
+  },
+  {
+   "id": "machine_row",
+   "name": "Machine row",
+   "slot": "horizontal_row",
+   "equipment": [
+    "machine"
+   ],
+   "alternates": [
+    "seated_cable_row",
+    "chest_supported_db_row",
+    "inverted_row"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "grip_heavy"
+   ],
+   "note": "Chest pad set so the handles sit at mid-torso"
+  },
+  {
+   "id": "pullup",
+   "name": "Pull-up",
+   "slot": "vertical_pull",
+   "equipment": [
+    "pullup_bar"
+   ],
+   "alternates": [
+    "band_assisted_pullup",
+    "lat_pulldown",
+    "inverted_row"
+   ],
+   "scheme": {
+    "sets": 4,
+    "low": 4,
+    "high": 10,
+    "unit": "reps",
+    "max": true
+   },
+   "calisthenic": true,
+   "tags": [
+    "compound",
+    "grip_heavy"
+   ],
+   "note": "Dead hang to chin over the bar, no kip"
+  },
+  {
+   "id": "chinup",
+   "name": "Chin-up",
+   "slot": "vertical_pull",
+   "also_fills": "biceps",
+   "dual_slot": true,
+   "equipment": [
+    "pullup_bar"
+   ],
+   "alternates": [
+    "band_assisted_pullup",
+    "lat_pulldown",
+    "inverted_row"
+   ],
+   "scheme": {
+    "sets": 4,
+    "low": 4,
+    "high": 10,
+    "unit": "reps",
+    "max": true
+   },
+   "calisthenic": true,
+   "tags": [
+    "compound",
+    "grip_heavy"
+   ],
+   "note": "Supinated grip, counts once toward weekly volume"
+  },
+  {
+   "id": "underhand_pullup",
+   "name": "Underhand pull-up",
+   "slot": "vertical_pull",
+   "equipment": [
+    "pullup_bar"
+   ],
+   "alternates": [
+    "chinup",
+    "band_assisted_pullup",
+    "lat_pulldown"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 6,
+    "high": 10,
+    "unit": "reps",
+    "max": true
+   },
+   "calisthenic": true,
+   "tags": [
+    "compound",
+    "grip_heavy"
+   ],
+   "note": "Shoulder-width supinated, controlled lower"
+  },
+  {
+   "id": "weighted_pullup",
+   "name": "Weighted pull-up",
+   "slot": "vertical_pull",
+   "equipment": [
+    "pullup_bar",
+    "dumbbells"
+   ],
+   "alternates": [
+    "pullup",
+    "lat_pulldown"
+   ],
+   "scheme": {
+    "sets": 4,
+    "low": 3,
+    "high": 6,
+    "unit": "reps"
+   },
+   "calisthenic": true,
+   "tags": [
+    "compound",
+    "grip_heavy"
+   ],
+   "note": "Belt or a bell between the feet, strict only"
+  },
+  {
+   "id": "negative_pullup",
+   "name": "Negative pull-up",
+   "slot": "vertical_pull",
+   "equipment": [
+    "pullup_bar"
+   ],
+   "alternates": [
+    "band_assisted_pullup",
+    "inverted_row"
+   ],
+   "scheme": {
+    "sets": 4,
+    "low": 3,
+    "high": 5,
+    "unit": "reps"
+   },
+   "calisthenic": true,
+   "tags": [
+    "grip_heavy",
+    "tempo"
+   ],
+   "note": "Jump to the top, five second lower, every rep"
+  },
+  {
+   "id": "band_assisted_pullup",
+   "name": "Band-assisted pull-up",
+   "slot": "vertical_pull",
+   "equipment": [
+    "pullup_bar",
+    "bands"
+   ],
+   "alternates": [
+    "negative_pullup",
+    "inverted_row",
+    "lat_pulldown"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 6,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": true,
+   "tags": [
+    "grip_heavy"
+   ],
+   "note": "Thinnest band that lets you finish the set strict"
+  },
+  {
+   "id": "lat_pulldown",
+   "name": "Lat pulldown",
+   "slot": "vertical_pull",
+   "equipment": [
+    "cable_machine"
+   ],
+   "alternates": [
+    "inverted_row"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "grip_heavy"
+   ],
+   "note": "Bar to the collarbone, minimal layback"
+  },
+  {
+   "id": "straight_arm_pulldown",
+   "name": "Straight-arm pulldown",
+   "slot": "vertical_pull",
+   "equipment": [
+    "cable_machine"
+   ],
+   "alternates": [
+    "lat_pulldown"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 10,
+    "high": 15,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "isolation"
+   ],
+   "note": "Elbows locked soft, sweep the bar to the thighs"
+  },
+  {
+   "id": "dip",
+   "name": "Dip",
+   "slot": "triceps",
+   "equipment": [
+    "dip_station"
+   ],
+   "alternates": [
+    "bench_dip",
+    "diamond_pushup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 6,
+    "high": 12,
+    "unit": "reps",
+    "max": true
+   },
+   "calisthenic": true,
+   "tags": [
+    "compound"
+   ],
+   "note": "Upright for triceps, lean forward for chest"
+  },
+  {
+   "id": "bench_dip",
+   "name": "Bench dip",
+   "slot": "triceps",
+   "equipment": [],
+   "alternates": [
+    "diamond_pushup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 10,
+    "high": 20,
+    "unit": "reps",
+    "max": true
+   },
+   "calisthenic": true,
+   "tags": [],
+   "note": "Hands on a bench behind, elbows straight back"
+  },
+  {
+   "id": "close_grip_bench",
+   "name": "Close-grip bench",
+   "slot": "triceps",
+   "equipment": [
+    "barbell",
+    "squat_rack"
+   ],
+   "alternates": [
+    "skullcrusher",
+    "dip",
+    "diamond_pushup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 6,
+    "high": 10,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "compound"
+   ],
+   "note": "Shoulder-width grip, elbows tucked"
+  },
+  {
+   "id": "tricep_pushdown",
+   "name": "Tricep pushdown",
+   "slot": "triceps",
+   "equipment": [
+    "cable_machine"
+   ],
+   "alternates": [
+    "overhead_tricep_extension",
+    "bench_dip",
+    "diamond_pushup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 10,
+    "high": 15,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "isolation"
+   ],
+   "note": "Elbows pinned to the ribs"
+  },
+  {
+   "id": "overhead_tricep_extension",
+   "name": "Overhead tricep extension",
+   "slot": "triceps",
+   "equipment": [],
+   "equipment_any": [
+    "dumbbells",
+    "cable_machine"
+   ],
+   "alternates": [
+    "tricep_pushdown",
+    "bench_dip",
+    "diamond_pushup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 10,
+    "high": 15,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "isolation"
+   ],
+   "note": "Full stretch overhead, elbows narrow"
+  },
+  {
+   "id": "skullcrusher",
+   "name": "Skullcrusher",
+   "slot": "triceps",
+   "equipment": [],
+   "equipment_any": [
+    "barbell",
+    "dumbbells"
+   ],
+   "alternates": [
+    "overhead_tricep_extension",
+    "bench_dip",
+    "diamond_pushup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 10,
+    "high": 15,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "isolation"
+   ],
+   "note": "Lower behind the forehead, not to the nose"
+  },
+  {
+   "id": "diamond_pushup",
+   "name": "Diamond push-up",
+   "slot": "triceps",
+   "equipment": [],
+   "alternates": [],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 20,
+    "unit": "reps",
+    "max": true
+   },
+   "calisthenic": true,
+   "tags": [],
+   "note": "Index fingers and thumbs touching under the sternum"
+  },
+  {
+   "id": "db_curl",
+   "name": "Dumbbell curl",
+   "slot": "biceps",
+   "equipment": [
+    "dumbbells"
+   ],
+   "alternates": [
+    "cable_curl",
+    "chinup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 10,
+    "high": 15,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "isolation"
+   ],
+   "note": "No swing, supinate through the top half"
+  },
+  {
+   "id": "barbell_curl",
+   "name": "Barbell curl",
+   "slot": "biceps",
+   "equipment": [
+    "barbell"
+   ],
+   "alternates": [
+    "db_curl",
+    "cable_curl",
+    "chinup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "isolation"
+   ],
+   "note": "Elbows fixed at the sides"
+  },
+  {
+   "id": "incline_db_curl",
+   "name": "Incline dumbbell curl",
+   "slot": "biceps",
+   "equipment": [
+    "dumbbells"
+   ],
+   "alternates": [
+    "db_curl",
+    "cable_curl",
+    "chinup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 10,
+    "high": 15,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "isolation"
+   ],
+   "note": "Bench at 45 degrees, arms hanging behind the torso"
+  },
+  {
+   "id": "hammer_curl",
+   "name": "Hammer curl",
+   "slot": "biceps",
+   "equipment": [
+    "dumbbells"
+   ],
+   "alternates": [
+    "db_curl",
+    "cable_curl",
+    "chinup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 10,
+    "high": 15,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "isolation",
+    "grip_heavy"
+   ],
+   "note": "Neutral grip held throughout"
+  },
+  {
+   "id": "cable_curl",
+   "name": "Cable curl",
+   "slot": "biceps",
+   "equipment": [
+    "cable_machine"
+   ],
+   "alternates": [
+    "db_curl",
+    "chinup"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 10,
+    "high": 15,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "isolation"
+   ],
+   "note": "Constant tension, do not let the stack rest"
+  },
+  {
+   "id": "db_lateral_raise",
+   "name": "Dumbbell lateral raise",
+   "slot": "side_delts",
+   "equipment": [
+    "dumbbells"
+   ],
+   "alternates": [
+    "cable_lateral_raise",
+    "machine_lateral_raise",
+    "upright_row"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 15,
+    "high": 20,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "isolation"
+   ],
+   "note": "Light, lead with the elbow, stop at shoulder height"
+  },
+  {
+   "id": "cable_lateral_raise",
+   "name": "Cable lateral raise",
+   "slot": "side_delts",
+   "equipment": [
+    "cable_machine"
+   ],
+   "alternates": [
+    "db_lateral_raise",
+    "upright_row"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 15,
+    "high": 20,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "isolation"
+   ],
+   "note": "Cable behind the body, tension through the whole arc"
+  },
+  {
+   "id": "machine_lateral_raise",
+   "name": "Machine lateral raise",
+   "slot": "side_delts",
+   "equipment": [
+    "machine"
+   ],
+   "alternates": [
+    "db_lateral_raise",
+    "upright_row"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 15,
+    "high": 20,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "isolation"
+   ],
+   "note": "Pad against the outer arm, not the wrist"
+  },
+  {
+   "id": "upright_row",
+   "name": "Upright row",
+   "slot": "side_delts",
+   "equipment": [],
+   "equipment_any": [
+    "barbell",
+    "dumbbells"
+   ],
+   "alternates": [
+    "db_lateral_raise"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 12,
+    "high": 15,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "grip_heavy"
+   ],
+   "note": "Wide grip, stop at chest height"
+  },
+  {
+   "id": "band_pull_apart",
+   "name": "Band pull-apart",
+   "slot": "rear_delts",
+   "equipment": [
+    "bands"
+   ],
+   "alternates": [
+    "reverse_fly",
+    "face_pull"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 15,
+    "high": 20,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "isolation"
+   ],
+   "note": "Arms straight, band to the sternum"
+  },
+  {
+   "id": "face_pull",
+   "name": "Face pull",
+   "slot": "rear_delts",
+   "equipment": [],
+   "equipment_any": [
+    "cable_machine",
+    "bands"
+   ],
+   "alternates": [
+    "band_pull_apart",
+    "reverse_fly"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 15,
+    "high": 20,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "isolation"
+   ],
+   "note": "Rope to the forehead, elbows high, external rotation at the end"
+  },
+  {
+   "id": "reverse_fly",
+   "name": "Reverse fly",
+   "slot": "rear_delts",
+   "equipment": [
+    "dumbbells"
+   ],
+   "alternates": [
+    "band_pull_apart",
+    "rear_delt_machine"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 15,
+    "high": 20,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "isolation"
+   ],
+   "note": "Hinged or chest-supported, thumbs down"
+  },
+  {
+   "id": "rear_delt_machine",
+   "name": "Rear delt machine",
+   "slot": "rear_delts",
+   "equipment": [
+    "machine"
+   ],
+   "alternates": [
+    "reverse_fly",
+    "band_pull_apart"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 15,
+    "high": 20,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "isolation"
+   ],
+   "note": "Chest on the pad, arms sweep wide not back"
+  },
+  {
+   "id": "barbell_shrug",
+   "name": "Barbell shrug",
+   "slot": "traps",
+   "equipment": [
+    "barbell"
+   ],
+   "alternates": [
+    "db_shrug",
+    "trap_bar_shrug",
+    "farmer_carry"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 10,
+    "high": 15,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "grip_heavy"
+   ],
+   "note": "Straight up, no rolling"
+  },
+  {
+   "id": "db_shrug",
+   "name": "Dumbbell shrug",
+   "slot": "traps",
+   "equipment": [
+    "dumbbells"
+   ],
+   "alternates": [
+    "barbell_shrug",
+    "farmer_carry"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 10,
+    "high": 15,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "grip_heavy"
+   ],
+   "note": "Pause a beat at the top"
+  },
+  {
+   "id": "trap_bar_shrug",
+   "name": "Trap bar shrug",
+   "slot": "traps",
+   "equipment": [
+    "trap_bar"
+   ],
+   "alternates": [
+    "db_shrug",
+    "barbell_shrug",
+    "farmer_carry"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 10,
+    "high": 15,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "grip_heavy"
+   ],
+   "note": "Neutral grip lets you load this heavier than a barbell"
+  },
+  {
+   "id": "farmer_carry",
+   "name": "Farmer carry",
+   "slot": "carry",
+   "also_fills": "traps",
+   "dual_slot": true,
+   "equipment": [],
+   "equipment_any": [
+    "dumbbells",
+    "kettlebell"
+   ],
+   "alternates": [
+    "suitcase_carry",
+    "weighted_backpack_walk"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 40,
+    "high": 40,
+    "unit": "yards"
+   },
+   "calisthenic": false,
+   "tags": [
+    "grip_heavy"
+   ],
+   "note": "Tall and quiet, counts once toward weekly volume"
+  },
+  {
+   "id": "suitcase_carry",
+   "name": "Suitcase carry",
+   "slot": "carry",
+   "equipment": [],
+   "equipment_any": [
+    "dumbbells",
+    "kettlebell"
+   ],
+   "alternates": [
+    "farmer_carry",
+    "weighted_backpack_walk"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 40,
+    "high": 40,
+    "unit": "yards"
+   },
+   "calisthenic": false,
+   "tags": [
+    "grip_heavy",
+    "unilateral"
+   ],
+   "note": "One side loaded, do not let the torso tip"
+  },
+  {
+   "id": "overhead_carry",
+   "name": "Overhead carry",
+   "slot": "carry",
+   "equipment": [
+    "kettlebell"
+   ],
+   "alternates": [
+    "front_rack_carry",
+    "farmer_carry"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 30,
+    "high": 30,
+    "unit": "yards"
+   },
+   "calisthenic": false,
+   "tags": [],
+   "note": "Elbow locked, bicep by the ear, ribs down"
+  },
+  {
+   "id": "front_rack_carry",
+   "name": "Front rack carry",
+   "slot": "carry",
+   "equipment": [
+    "kettlebell"
+   ],
+   "alternates": [
+    "farmer_carry",
+    "weighted_backpack_walk"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 40,
+    "high": 40,
+    "unit": "yards"
+   },
+   "calisthenic": false,
+   "tags": [],
+   "note": "Bells racked on the forearms, breathe normally"
+  },
+  {
+   "id": "weighted_backpack_walk",
+   "name": "Weighted backpack walk",
+   "slot": "carry",
+   "equipment": [],
+   "alternates": [],
+   "scheme": {
+    "sets": 1,
+    "low": 20,
+    "high": 45,
+    "unit": "minutes"
+   },
+   "calisthenic": false,
+   "tags": [],
+   "note": "Pack loaded and cinched high, normal walking pace",
+   "also_fills": "conditioning"
+  },
+  {
+   "id": "plank",
+   "name": "Plank",
+   "slot": "core",
+   "equipment": [],
+   "alternates": [],
+   "scheme": {
+    "sets": 3,
+    "low": 30,
+    "high": 60,
+    "unit": "seconds",
+    "max": true
+   },
+   "calisthenic": true,
+   "tags": [
+    "isometric"
+   ],
+   "note": "Glutes and quads on, do not sag or pike"
+  },
+  {
+   "id": "side_plank",
+   "name": "Side plank",
+   "slot": "core",
+   "equipment": [],
+   "alternates": [
+    "plank"
+   ],
+   "scheme": {
+    "sets": 2,
+    "low": 30,
+    "high": 45,
+    "unit": "seconds",
+    "max": true
+   },
+   "calisthenic": true,
+   "tags": [
+    "isometric"
+   ],
+   "note": "Stack the feet, hips high, per side"
+  },
+  {
+   "id": "hollow_hold",
+   "name": "Hollow hold",
+   "slot": "core",
+   "equipment": [],
+   "alternates": [
+    "dead_bug",
+    "plank"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 20,
+    "high": 45,
+    "unit": "seconds",
+    "max": true
+   },
+   "calisthenic": true,
+   "tags": [
+    "isometric"
+   ],
+   "note": "Lower back flat to the floor, shorten the lever if it lifts"
+  },
+  {
+   "id": "dead_bug",
+   "name": "Dead bug",
+   "slot": "core",
+   "equipment": [],
+   "alternates": [
+    "plank"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": true,
+   "tags": [],
+   "note": "Slow, opposite arm and leg, ribs down throughout"
+  },
+  {
+   "id": "ab_wheel",
+   "name": "Ab wheel",
+   "slot": "core",
+   "equipment": [],
+   "alternates": [
+    "hollow_hold",
+    "plank"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 6,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": true,
+   "tags": [],
+   "note": "From the knees, only as far out as you can hold the ribs down"
+  },
+  {
+   "id": "hanging_knee_raise",
+   "name": "Hanging knee raise",
+   "slot": "core",
+   "equipment": [
+    "pullup_bar"
+   ],
+   "alternates": [
+    "hollow_hold",
+    "dead_bug"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 15,
+    "unit": "reps",
+    "max": true
+   },
+   "calisthenic": true,
+   "tags": [
+    "grip_heavy"
+   ],
+   "note": "No swing, curl the pelvis at the top"
+  },
+  {
+   "id": "weighted_knee_raise",
+   "name": "Weighted knee raise",
+   "slot": "core",
+   "equipment": [
+    "pullup_bar",
+    "dumbbells"
+   ],
+   "alternates": [
+    "hanging_knee_raise",
+    "hollow_hold"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 8,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "grip_heavy"
+   ],
+   "note": "Bell held between the feet, strict"
+  },
+  {
+   "id": "turkish_getup",
+   "name": "Turkish get-up",
+   "slot": "core",
+   "equipment": [
+    "kettlebell"
+   ],
+   "alternates": [
+    "plank",
+    "side_plank"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 3,
+    "high": 5,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [],
+   "note": "Eyes on the bell, per side, slow is the whole point"
+  },
+  {
+   "id": "pallof_press",
+   "name": "Pallof press",
+   "slot": "core",
+   "equipment": [],
+   "equipment_any": [
+    "cable_machine",
+    "bands"
+   ],
+   "alternates": [
+    "side_plank",
+    "plank"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 10,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "anti_rotation"
+   ],
+   "note": "Resist the rotation, press straight out from the sternum"
+  },
+  {
+   "id": "l_sit_progression",
+   "name": "L-sit progression",
+   "slot": "core",
+   "equipment": [],
+   "alternates": [
+    "hollow_hold",
+    "plank"
+   ],
+   "scheme": {
+    "sets": 3,
+    "low": 10,
+    "high": 30,
+    "unit": "seconds",
+    "max": true
+   },
+   "calisthenic": true,
+   "tags": [
+    "isometric"
+   ],
+   "note": "Tucked, then one leg, then full"
+  },
+  {
+   "id": "dead_hang",
+   "name": "Dead hang",
+   "slot": "mobility",
+   "equipment": [
+    "pullup_bar"
+   ],
+   "alternates": [],
+   "scheme": {
+    "sets": 3,
+    "low": 30,
+    "high": 60,
+    "unit": "seconds",
+    "max": true
+   },
+   "calisthenic": true,
+   "tags": [
+    "grip_heavy"
+   ],
+   "note": "Relax into it, shoulders allowed to rise"
+  },
+  {
+   "id": "hip_90_90",
+   "name": "90/90 hip switch",
+   "slot": "mobility",
+   "equipment": [],
+   "alternates": [],
+   "scheme": {
+    "sets": 2,
+    "low": 8,
+    "high": 10,
+    "unit": "reps"
+   },
+   "calisthenic": true,
+   "tags": [],
+   "note": "Switch without using the hands once it is available"
+  },
+  {
+   "id": "thoracic_rotation",
+   "name": "Thoracic rotation",
+   "slot": "mobility",
+   "equipment": [],
+   "alternates": [],
+   "scheme": {
+    "sets": 2,
+    "low": 8,
+    "high": 10,
+    "unit": "reps"
+   },
+   "calisthenic": true,
+   "tags": [],
+   "note": "Side-lying open book, per side"
+  },
+  {
+   "id": "cat_cow",
+   "name": "Cat/cow",
+   "slot": "mobility",
+   "equipment": [],
+   "alternates": [],
+   "scheme": {
+    "sets": 2,
+    "low": 10,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": true,
+   "tags": [],
+   "note": "Segment by segment, tied to the breath"
+  },
+  {
+   "id": "couch_stretch",
+   "name": "Couch stretch",
+   "slot": "mobility",
+   "equipment": [],
+   "alternates": [],
+   "scheme": {
+    "sets": 2,
+    "low": 45,
+    "high": 60,
+    "unit": "seconds"
+   },
+   "calisthenic": true,
+   "tags": [],
+   "note": "Rear foot up the wall, glute on, per side"
+  },
+  {
+   "id": "wall_slide",
+   "name": "Wall slide",
+   "slot": "mobility",
+   "equipment": [],
+   "alternates": [],
+   "scheme": {
+    "sets": 2,
+    "low": 10,
+    "high": 12,
+    "unit": "reps"
+   },
+   "calisthenic": true,
+   "tags": [],
+   "note": "Low back flat to the wall, wrists stay in contact"
+  },
+  {
+   "id": "ankle_rock",
+   "name": "Ankle rock",
+   "slot": "mobility",
+   "equipment": [],
+   "alternates": [],
+   "scheme": {
+    "sets": 2,
+    "low": 10,
+    "high": 15,
+    "unit": "reps"
+   },
+   "calisthenic": true,
+   "tags": [],
+   "note": "Knee tracks over the toes, heel stays down, per side"
+  },
+  {
+   "id": "worlds_greatest_stretch",
+   "name": "World's greatest stretch",
+   "slot": "mobility",
+   "equipment": [],
+   "alternates": [],
+   "scheme": {
+    "sets": 2,
+    "low": 5,
+    "high": 6,
+    "unit": "reps"
+   },
+   "calisthenic": true,
+   "tags": [],
+   "note": "Lunge, elbow inside the foot, then rotate up, per side"
+  },
+  {
+   "id": "jog",
+   "name": "Jog",
+   "slot": "conditioning",
+   "equipment": [
+    "track"
+   ],
+   "alternates": [
+    "hill_walk",
+    "rowing_machine",
+    "jump_rope"
+   ],
+   "scheme": {
+    "sets": 1,
+    "low": 20,
+    "high": 45,
+    "unit": "minutes"
+   },
+   "calisthenic": false,
+   "tags": [],
+   "note": "Conversational pace unless the phase says otherwise"
+  },
+  {
+   "id": "walk_jog_intervals",
+   "name": "Walk/jog intervals",
+   "slot": "conditioning",
+   "equipment": [
+    "track"
+   ],
+   "alternates": [
+    "hill_walk",
+    "rowing_machine"
+   ],
+   "scheme": {
+    "sets": 8,
+    "low": 2,
+    "high": 3,
+    "unit": "minutes"
+   },
+   "calisthenic": false,
+   "tags": [],
+   "note": "Jog the work, walk the rest, keep the ratio honest"
+  },
+  {
+   "id": "hill_walk",
+   "name": "Hill walk",
+   "slot": "conditioning",
+   "equipment": [],
+   "alternates": [],
+   "scheme": {
+    "sets": 1,
+    "low": 30,
+    "high": 60,
+    "unit": "minutes"
+   },
+   "calisthenic": false,
+   "tags": [],
+   "note": "Steady grade, nose breathing if possible"
+  },
+  {
+   "id": "par3_round",
+   "name": "Par 3 round, walking",
+   "slot": "conditioning",
+   "equipment": [],
+   "alternates": [
+    "hill_walk"
+   ],
+   "scheme": {
+    "sets": 1,
+    "low": 45,
+    "high": 90,
+    "unit": "minutes"
+   },
+   "calisthenic": false,
+   "tags": [],
+   "note": "Walk the course, carry the bag"
+  },
+  {
+   "id": "shadow_boxing",
+   "name": "Shadow boxing",
+   "slot": "conditioning",
+   "equipment": [],
+   "alternates": [],
+   "scheme": {
+    "sets": 3,
+    "low": 3,
+    "high": 3,
+    "unit": "minutes"
+   },
+   "calisthenic": false,
+   "tags": [],
+   "note": "Three rounds, hands up, move the feet"
+  },
+  {
+   "id": "bag_work",
+   "name": "Heavy bag or pad work",
+   "slot": "conditioning",
+   "equipment": [],
+   "alternates": [
+    "shadow_boxing"
+   ],
+   "scheme": {
+    "sets": 5,
+    "low": 3,
+    "high": 3,
+    "unit": "minutes"
+   },
+   "calisthenic": false,
+   "tags": [],
+   "note": "Wrap the hands, one minute between rounds"
+  },
+  {
+   "id": "jump_rope",
+   "name": "Jump rope",
+   "slot": "conditioning",
+   "equipment": [],
+   "alternates": [],
+   "scheme": {
+    "sets": 5,
+    "low": 2,
+    "high": 3,
+    "unit": "minutes"
+   },
+   "calisthenic": false,
+   "tags": [],
+   "note": "Low bounce, wrists doing the work"
+  },
+  {
+   "id": "box_jump",
+   "name": "Box jump",
+   "slot": "conditioning",
+   "equipment": [],
+   "alternates": [
+    "broad_jump"
+   ],
+   "scheme": {
+    "sets": 4,
+    "low": 3,
+    "high": 5,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "plyo"
+   ],
+   "note": "Step down every rep, quality over height"
+  },
+  {
+   "id": "broad_jump",
+   "name": "Broad jump",
+   "slot": "conditioning",
+   "equipment": [],
+   "alternates": [
+    "box_jump"
+   ],
+   "scheme": {
+    "sets": 4,
+    "low": 3,
+    "high": 5,
+    "unit": "reps"
+   },
+   "calisthenic": false,
+   "tags": [
+    "plyo"
+   ],
+   "note": "Stick the landing before the next rep"
+  },
+  {
+   "id": "rowing_machine",
+   "name": "Rowing machine",
+   "slot": "conditioning",
+   "equipment": [
+    "machine"
+   ],
+   "alternates": [
+    "assault_bike",
+    "jog",
+    "jump_rope"
+   ],
+   "scheme": {
+    "sets": 1,
+    "low": 15,
+    "high": 30,
+    "unit": "minutes"
+   },
+   "calisthenic": false,
+   "tags": [
+    "grip_heavy"
+   ],
+   "note": "Legs, back, arms, then reverse"
+  },
+  {
+   "id": "assault_bike",
+   "name": "Assault bike",
+   "slot": "conditioning",
+   "equipment": [
+    "machine"
+   ],
+   "alternates": [
+    "rowing_machine",
+    "jog",
+    "jump_rope"
+   ],
+   "scheme": {
+    "sets": 1,
+    "low": 15,
+    "high": 30,
+    "unit": "minutes"
+   },
+   "calisthenic": false,
+   "tags": [],
+   "note": "Intervals unless the phase says steady"
+  },
+  {
+   "id": "swim_set",
+   "name": "Swim set",
+   "slot": "conditioning",
+   "equipment": [
+    "pool"
+   ],
+   "alternates": [
+    "rowing_machine",
+    "jog"
+   ],
+   "scheme": {
+    "sets": 1,
+    "low": 20,
+    "high": 45,
+    "unit": "minutes"
+   },
+   "calisthenic": false,
+   "tags": [],
+   "note": "Continuous laps, breathing pattern held"
+  }
+ ]
+}
