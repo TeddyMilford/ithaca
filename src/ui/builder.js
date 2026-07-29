@@ -34,7 +34,7 @@ import {
   progressionFor,
 } from "../lib/generateWeek.js";
 import { SESSION_TYPES, slotsFor, WORKOUT_SLOTS } from "../lib/sessions.js";
-import { clear, load, save } from "../lib/store.js";
+import { clear, hasSaved, load, save } from "../lib/store.js";
 import { css, STYLES } from "../pdf/styles.js";
 import { buildICS, icsFilename } from "../outputs/ics.js";
 import { buildTracker, trackerFilename } from "../outputs/tracker.js";
@@ -59,22 +59,29 @@ const WEEKDAYS = [
 
 // In dev, a refresh is a clean slate: the from-scratch flow is the thing being
 // worked on, and stale saved state hides it. Production keeps persistence.
-if (import.meta.env.DEV) {
-  clear();
-  try {
-    localStorage.removeItem(STEP_KEY);
-  } catch {
-    /* fine */
-  }
-}
+if (import.meta.env.DEV) clear();
+
+// Whether this browser has been here before, read before load() so it reflects
+// the visit rather than the write load() may trigger.
+const returning = hasSaved();
 
 let state = load();
 let step = 0;
 let showAll = false;
 const expanded = new Set(); // open weekday movement editors
 
-const savedStep = Number(localStorage.getItem(STEP_KEY));
-if (Number.isFinite(savedStep) && savedStep > 0) step = savedStep;
+// How far the form has been opened up. A first visit walks the steps one at a
+// time; a returning one can reach any of them, including the output.
+let unlockedThrough = 0;
+
+// Step position is deliberately not persisted. A page load belongs at the top
+// of the form, not three steps into the middle of it with no way to tell why.
+// Answers are still saved, so nobody loses work on a refresh.
+try {
+  localStorage.removeItem(STEP_KEY);
+} catch {
+  /* fine */
+}
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const el = (tag, props = {}, children = []) => {
@@ -99,11 +106,7 @@ function goToStep(i) {
   const firstUnanswered = STEPS.findIndex((d) => d.complete && !d.complete());
   step =
     firstUnanswered >= 0 && target > firstUnanswered ? firstUnanswered : target;
-  try {
-    localStorage.setItem(STEP_KEY, String(step));
-  } catch {
-    /* fine */
-  }
+  unlockedThrough = Math.max(unlockedThrough, step);
   render();
   // Land on the step you just opened, not wherever the page height left you.
   const open = $(".step.open");
@@ -1247,8 +1250,10 @@ function onImportJSON(file) {
 
 function renderStep(def, index) {
   const isOpen = showAll || index === step;
-  const isDone = !showAll && index < step;
-  const isLocked = !showAll && index > step;
+  // Any step already reached collapses to a summary you can click back into,
+  // whether it sits before or after the one that is open.
+  const isDone = !showAll && !isOpen && index <= unlockedThrough;
+  const isLocked = !showAll && index > unlockedThrough;
 
   const node = el("section", {
     className: `step ${isOpen ? "open" : ""} ${isDone ? "done" : ""} ${isLocked ? "locked" : ""}`,
@@ -1341,15 +1346,34 @@ function render() {
   ]);
   root.append(bar);
 
-  STEPS.forEach((def, i) => root.append(renderStep(def, i)));
-
-  const reset = el("button", { type: "button", className: "link" }, "Reset");
-  reset.addEventListener("click", () => {
+  const startOver = () => {
     clear();
     state = defaultFormState();
     expanded.clear();
+    unlockedThrough = 0;
+    showAll = false;
     goToStep(0);
-  });
+  };
+
+  // A returning visitor lands at the top with their answers intact. Say so,
+  // rather than leaving them to wonder why the form is already filled in.
+  if (returning && !showAll) {
+    const fresh = el("button", { type: "button", className: "small" }, "Start over");
+    fresh.addEventListener("click", startOver);
+    const jump = el("button", { type: "button", className: "small" }, "Go to the PDF");
+    jump.addEventListener("click", () => goToStep(STEPS.length - 1));
+    root.append(
+      el("div", { className: "resume" }, [
+        el("p", {}, "Your answers from last time are still here. Change any step, or go straight to the download."),
+        el("div", { className: "output-row" }, [jump, fresh]),
+      ]),
+    );
+  }
+
+  STEPS.forEach((def, i) => root.append(renderStep(def, i)));
+
+  const reset = el("button", { type: "button", className: "link" }, "Reset");
+  reset.addEventListener("click", startOver);
   root.append(
     el("p", { style: "margin-top:2.5rem; text-align:center;" }, reset),
   );
@@ -1357,5 +1381,9 @@ function render() {
   renderReview();
   window.scrollTo(0, scroll);
 }
+
+// Everything is already answered for a returning visitor, so every step is
+// reachable straight away rather than making them click Next back through it.
+if (returning) unlockedThrough = STEPS.length - 1;
 
 render();

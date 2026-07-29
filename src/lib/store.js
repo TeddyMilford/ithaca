@@ -59,6 +59,15 @@ function hydrate(saved) {
   };
 }
 
+/** Has this browser been here before? Decides where the form opens. */
+export function hasSaved() {
+  try {
+    return localStorage.getItem(STORAGE_KEY) != null;
+  } catch {
+    return false;
+  }
+}
+
 export function load() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
