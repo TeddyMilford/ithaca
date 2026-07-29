@@ -222,7 +222,6 @@ button.small { padding: 0.3rem 0.5rem; font-size: 0.7rem; min-height: 0; }
 
 /* --- Output bar ---------------------------------------------------------- */
 
-.outputs { position: sticky; bottom: 0; background: var(--paper); border-top: 2px solid var(--ink); padding: 0.8rem 0; margin-top: 2rem; }
 .output-row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
 .status { font-size: 0.8rem; color: var(--muted); flex-basis: 100%; margin-top: 0.3rem; min-height: 1.2em; }
 .status.error { color: var(--accent-ink); }
@@ -407,3 +406,47 @@ button.big { font-size: 0.95rem; padding: 0.95rem 1.6rem; }
 
 button:disabled { opacity: 0.35; cursor: not-allowed; }
 button.primary:disabled:hover { filter: none; }
+
+/* ==========================================================================
+   Touch devices
+   ==========================================================================
+   Two things break on an iPhone that look fine on a desktop:
+
+   1. Safari zooms the whole page in whenever you focus a form control whose
+      font is under 16px, and every control here was 14.4px. The zoom does not
+      undo itself, so you end up panning sideways through the rest of the form.
+   2. The compact buttons carry min-height:0, landing them near 24px tall.
+      Apple's guidance is 44px, and these are the buttons the form leans on:
+      Change, Add a trip, Remove, Movements, Start over.
+
+   Scoped to `pointer: coarse` so nothing shifts on a mouse-driven browser. */
+
+@media (pointer: coarse) {
+  input[type="text"],
+  input[type="date"],
+  input[type="number"],
+  select,
+  textarea,
+  .slot-grid select {
+    font-size: 16px;
+    min-height: 2.75rem;
+  }
+
+  button,
+  button.small,
+  button.link,
+  .chip {
+    min-height: 2.75rem;
+  }
+
+  button.small { padding: 0.5rem 0.8rem; font-size: 0.78rem; }
+  button.link { padding: 0.6rem 0.4rem; }
+  .chip { min-width: 3.6rem; }
+
+  /* Bigger boxes, and room to hit them without catching the neighbour. */
+  .check { min-height: 2.75rem; padding: 0.45rem 0; }
+  .check input { width: 1.35rem; height: 1.35rem; }
+
+  /* The day-off card stacks rather than squeezing four fields onto one row. */
+  .exemption-row { grid-template-columns: 1fr; }
+}

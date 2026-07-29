@@ -957,6 +957,10 @@ function bodyDownload() {
     "Print as PDF",
   );
   pdf.addEventListener("click", onDownloadPDF);
+  // Start fetching the PDF code now, while they read the summary above it.
+  loadPDFModule().catch(() => {
+    /* the click reports it properly */
+  });
 
   const ics = el("button", { type: "button" }, "Calendar (.ics)");
   ics.addEventListener("click", onDownloadICS);
@@ -1180,11 +1184,21 @@ function renderReview() {
 // Outputs
 // ---------------------------------------------------------------------------
 
+// pdf-lib and the fonts are about a megabyte, so they load on demand rather
+// than up front. The import is warmed as soon as the output step is on screen:
+// downloading a file is only reliably permitted close to the tap that asked
+// for it, and waiting on a megabyte first is what pushes it out of that window
+// on a phone. Cached, so it is fetched once however many PDFs get made.
+let pdfModule = null;
+const loadPDFModule = () => {
+  pdfModule ??= import("../pdf/layout.js");
+  return pdfModule;
+};
+
 async function onDownloadPDF() {
   status("Generating…");
   try {
-    // pdf-lib and the fonts are the heaviest thing here, so they load on demand.
-    const { generatePDF, pdfFilename } = await import("../pdf/layout.js");
+    const { generatePDF, pdfFilename } = await loadPDFModule();
     const { bytes } = await generatePDF(state, buildBlock(state));
     download(
       pdfFilename(state),

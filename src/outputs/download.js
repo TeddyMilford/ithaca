@@ -8,11 +8,16 @@ export function download(filename, data, mime) {
   const a = document.createElement('a');
   a.href = url;
   a.download = filename;
+  // rel=noopener matters for the iOS case, where a PDF opens in the viewer
+  // rather than saving, and target is honoured.
+  a.rel = 'noopener';
   document.body.appendChild(a);
   a.click();
   a.remove();
-  // Revoke on the next tick so Safari has time to start the download.
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  // Hold the blob well past the click. Revoking at one second can cut off a
+  // multi-megabyte PDF on a phone that has not finished reading it yet, and an
+  // object URL costs nothing to keep until the page goes away.
+  setTimeout(() => URL.revokeObjectURL(url), 60_000);
 }
 
 export function exportJSON(formState) {
