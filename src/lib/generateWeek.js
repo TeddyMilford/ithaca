@@ -138,6 +138,79 @@ const RUN_KEYS = {
 
 const WEIGHTS = ['barbell', 'dumbbells', 'kettlebell', 'machine'];
 
+const WEEKDAY_NAMES = {
+  sun: 'Sunday', mon: 'Monday', tue: 'Tuesday', wed: 'Wednesday',
+  thu: 'Thursday', fri: 'Friday', sat: 'Saturday',
+};
+
+/** ["a","b","c"] -> "a, b and c" */
+function listOf(items) {
+  if (items.length <= 1) return items[0] ?? '';
+  return `${items.slice(0, -1).join(', ')} and ${items.at(-1)}`;
+}
+
+// Scoring for where lifting days land. Home days are a preference, not an
+// order: taking one is worth less than the cost of stacking three sessions
+// back to back, so the bias can never wreck the spacing.
+const ON_HOME_DAY = 10;
+const BACK_TO_BACK = 6;
+const THREE_IN_A_ROW = 25;
+
+/** Every k-sized combination of `items`, in input order. */
+function combinations(items, k) {
+  if (k === 0) return [[]];
+  const out = [];
+  const walk = (start, taken) => {
+    if (taken.length === k) { out.push(taken); return; }
+    for (let i = start; i < items.length; i += 1) walk(i + 1, [...taken, items[i]]);
+  };
+  walk(0, []);
+  return out;
+}
+
+/**
+ * Rate one set of lifting days. Adjacency wraps around the week, because the
+ * template repeats: Saturday and the following Sunday really are consecutive.
+ */
+function scheduleScore(days, homeDays) {
+  const set = new Set(days);
+  let score = 0;
+  for (const day of days) if (homeDays.has(day)) score += ON_HOME_DAY;
+  for (let i = 0; i < WEEK_KEYS.length; i += 1) {
+    const a = set.has(WEEK_KEYS[i]);
+    const b = set.has(WEEK_KEYS[(i + 1) % 7]);
+    const c = set.has(WEEK_KEYS[(i + 2) % 7]);
+    if (a && b) score -= BACK_TO_BACK;
+    if (a && b && c) score -= THREE_IN_A_ROW;
+  }
+  return score;
+}
+
+/**
+ * Choose the lifting days. With no home days named this is the plain weekly
+ * pattern and nothing is searched. With home days named, every placement is
+ * scored and the best one wins — which lands sessions on home days where it
+ * can, and refuses to stack them up where it cannot.
+ */
+export function pickLiftDays(liftDays, wfhDays = []) {
+  const fallback = LIFT_DAY_KEYS[liftDays] ?? LIFT_DAY_KEYS[3];
+  const homeDays = new Set(WEEK_KEYS.filter((k) => wfhDays.includes(k)));
+  if (homeDays.size === 0) return fallback;
+
+  let best = null;
+  for (const combo of combinations(WEEK_KEYS, liftDays)) {
+    const score = scheduleScore(combo, homeDays);
+    // On a tie the usual pattern wins, then the earliest week. Keeps the
+    // result stable rather than dependent on iteration order.
+    const isFallback = combo.length === fallback.length
+      && combo.every((d, i) => d === fallback[i]);
+    if (!best || score > best.score || (score === best.score && isFallback && !best.isFallback)) {
+      best = { combo, score, isFallback };
+    }
+  }
+  return best.combo;
+}
+
 /** Fill a session's open slots with the best available movement per slot. */
 function fillSlots(sessionId, picks, owned) {
   const type = SESSION_TYPES[sessionId];
@@ -170,23 +243,21 @@ export function generateWeek(profile = {}, equipment = []) {
   const notes = [];
 
   // --- Indoor -------------------------------------------------------------
-  // Bias lifting days toward work-from-home days when the user named any:
-  // the gym trip is easiest on a day you are already home. No WFH days named,
-  // no bias. If there are more home days than lifting days, spread across them.
+  // Lifting prefers work-from-home days, since that is when a gym trip is
+  // easiest to fit. Name none and the plain weekly pattern stands.
   const wfh = WEEK_KEYS.filter((k) => (profile.wfhDays ?? []).includes(k));
-  let liftKeys = LIFT_DAY_KEYS[liftDays];
+  const liftKeys = pickLiftDays(liftDays, wfh);
   if (wfh.length > 0) {
-    const spread = [];
-    for (let i = 0; i < Math.min(liftDays, wfh.length); i += 1) {
-      const idx = wfh.length === 1 ? 0 : Math.round((i * (wfh.length - 1)) / Math.max(1, liftDays - 1));
-      if (!spread.includes(wfh[idx])) spread.push(wfh[idx]);
+    const hits = liftKeys.filter((k) => wfh.includes(k)).length;
+    const dayName = (k) => WEEKDAY_NAMES[k];
+    if (hits === liftKeys.length) {
+      notes.push('Every lifting day is a day you are home.');
+    } else if (hits > 0) {
+      notes.push(`Lifting lands at home on ${listOf(liftKeys.filter((k) => wfh.includes(k)).map(dayName))}. `
+        + 'The rest is spaced out so the sessions do not stack up.');
+    } else {
+      notes.push('Your home days would have put the sessions back to back, so the usual spacing wins.');
     }
-    const fill = LIFT_DAY_KEYS[liftDays].filter((k) => !spread.includes(k));
-    liftKeys = [...spread, ...fill].slice(0, liftDays)
-      .sort((a, b) => WEEK_KEYS.indexOf(a) - WEEK_KEYS.indexOf(b));
-    notes.push(wfh.length >= liftDays
-      ? 'Lifting lands on your home days.'
-      : 'Lifting starts on your home days, then falls back to the usual spacing.');
   }
   const liftSessions = LIFT_SESSIONS[liftDays];
   const indoor = {};

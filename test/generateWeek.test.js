@@ -117,7 +117,47 @@ describe('generateWeek', () => {
     );
     const lifts = WEEK_KEYS.filter((k) => ['gym_a', 'gym_b', 'gym_full'].includes(week[k].indoor.session));
     expect(lifts).toEqual(['tue', 'sat']);
-    expect(notes.join(' ')).toMatch(/home days/i);
+    expect(notes.join(' ')).toMatch(/home/i);
+  });
+
+  it('never stacks three lifting days in a row, whatever the home days', () => {
+    const isLift = (s) => ['gym_a', 'gym_b', 'gym_full', 'calisthenics'].includes(s);
+    // Every subset of home days, against every lifting-day count.
+    for (let mask = 0; mask < 128; mask += 1) {
+      const wfhDays = WEEK_KEYS.filter((_, i) => mask & (1 << i));
+      for (const liftDays of [2, 3, 4]) {
+        const { week } = generateWeek(
+          { goal: 'allround', experience: 'returning', liftDays, wfhDays }, ['full_gym'],
+        );
+        const lifts = new Set(WEEK_KEYS.filter((k) => isLift(week[k].indoor.session)));
+        expect(lifts.size, `[${wfhDays}] x${liftDays}`).toBe(liftDays);
+        for (let i = 0; i < 7; i += 1) {
+          const run = [0, 1, 2].every((n) => lifts.has(WEEK_KEYS[(i + n) % 7]));
+          expect(run, `three in a row from ${WEEK_KEYS[i]} with [${wfhDays}] x${liftDays}`).toBe(false);
+        }
+      }
+    }
+  });
+
+  it('takes a home day only when it does not wreck the spacing', () => {
+    const lifts = (wfhDays, liftDays) => {
+      const { week } = generateWeek(
+        { goal: 'allround', experience: 'returning', liftDays, wfhDays }, ['full_gym'],
+      );
+      return WEEK_KEYS.filter((k) => ['gym_a', 'gym_b', 'gym_full'].includes(week[k].indoor.session));
+    };
+    // Two adjacent home days and three sessions: the third goes elsewhere
+    // rather than making it Monday, Tuesday, Wednesday.
+    expect(lifts(['mon', 'tue'], 3)).toEqual(['mon', 'tue', 'thu']);
+    // Three adjacent home days but only two sessions: it spreads inside them.
+    expect(lifts(['mon', 'tue', 'wed'], 2)).toEqual(['mon', 'wed']);
+  });
+
+  it('is stable when the same home days arrive in a different order', () => {
+    const run = (wfhDays) => generateWeek(
+      { goal: 'allround', experience: 'returning', liftDays: 3, wfhDays }, ['full_gym'],
+    ).week;
+    expect(run(['fri', 'mon', 'wed'])).toEqual(run(['mon', 'wed', 'fri']));
   });
 
   it('tops up from the default pattern when home days are fewer than lifting days', () => {
